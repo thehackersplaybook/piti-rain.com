@@ -1,8 +1,10 @@
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
+      <Header />
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="mx-auto max-w-4xl px-6 py-20 md:py-32">

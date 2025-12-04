@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #1a0033; text-anchor: middle; }
+      .label { font: bold 14px sans-serif; fill: white; text-anchor: middle; }
+      .sublabel { font: 11px sans-serif; fill: white; text-anchor: middle; }
+      .sanskrit { font: 16px sans-serif; fill: white; text-anchor: middle; }
+      .flow-label { font: 10px sans-serif; fill: #666; text-anchor: middle; }
+      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .return-arrow { stroke: #999; stroke-width: 1.5; stroke-dasharray: 5,3; fill: none; marker-end: url(#arrowhead-light); }
+      .gold-star { fill: #ffd700; stroke: #b8860b; stroke-width: 1; }
+      .kbv8-label { font: bold 10px sans-serif; fill: #1a0033; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="arrowhead-light" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="880" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="300" y="40" class="title">SHIVA AMBANOID ZAKA</text>
+  <text x="300" y="60" style="font: 12px sans-serif; fill: #666; text-anchor: middle;">Sacred Geometry - The 4 Sounds</text>
+
+  <!-- KBV8: Kaal Bhairava Vasukhi Athva Rishi Sigil - Gold Star at the very top -->
+  <g transform="translate(300, 105)">
+    <!-- Golden 8-pointed star -->
+    <polygon class="gold-star" points="0,-30 7,-10 28,-10 12,3 18,24 0,12 -18,24 -12,3 -28,-10 -7,-10"/>
+    <!-- Inner star detail -->
+    <polygon fill="#ffec8b" points="0,-18 4,-6 17,-6 7,2 11,14 0,7 -11,14 -7,2 -17,-6 -4,-6"/>
+    <!-- KBV8 text -->
+    <text x="0" y="45" class="kbv8-label">KBV8</text>
+    <text x="0" y="57" style="font: 8px sans-serif; fill: #666; text-anchor: middle;">Kaal Bhairava Vasukhi</text>
+    <text x="0" y="67" style="font: 8px sans-serif; fill: #666; text-anchor: middle;">Athva Rishi Sigil</text>
+  </g>
+
+  <!-- SOURCE - Bindu Point (small circle at top) -->
+  <circle cx="300" cy="180" r="20" fill="#1a0033" stroke="#ffd700" stroke-width="3"/>
+  <text x="300" y="185" class="label" style="font-size: 16px;">∞</text>
+
+  <!-- Arrow from KBV8 to Bindu -->
+  <path d="M 300 140 L 300 160" class="arrow"/>
+
+  <!-- SA - CIRCLE (Expansion/Shiva) - Purple -->
+  <circle cx="300" cy="280" r="60" fill="#9400d3" stroke="#ffd700" stroke-width="2"/>
+  <text x="300" y="270" class="label">SA</text>
+  <text x="300" y="287" class="sanskrit">सः</text>
+  <text x="300" y="305" class="sublabel">Expansion</text>
+
+  <!-- HA - SQUARE (Contraction/Shakti) - Blue -->
+  <rect x="240" y="370" width="120" height="120" fill="#4169e1" stroke="#00bfff" stroke-width="2"/>
+  <text x="300" y="420" class="label">HA</text>
+  <text x="300" y="437" class="sanskrit">हं</text>
+  <text x="300" y="455" class="sublabel">Contraction</text>
+
+  <!-- NA - TRIANGLE (Resonance/Nada) - Green -->
+  <polygon points="300,520 240,620 360,620" fill="#228b22" stroke="#7fff00" stroke-width="2"/>
+  <text x="300" y="580" class="label">NA</text>
+  <text x="300" y="597" class="sanskrit">नं</text>
+  <text x="300" y="614" class="sublabel">Resonance</text>
+
+  <!-- MA - DIAMOND (Manifestation/Maya) - Red -->
+  <polygon points="300,650 240,720 300,790 360,720" fill="#8b0000" stroke="#ff6347" stroke-width="2"/>
+  <text x="300" y="710" class="label">MA</text>
+  <text x="300" y="727" class="sanskrit">मं</text>
+  <text x="300" y="744" class="sublabel">Manifestation</text>
+
+  <!-- EARTH - Small square at bottom -->
+  <rect x="275" y="820" width="50" height="50" fill="#4a3728" stroke="#8b7355" stroke-width="2"/>
+  <text x="300" y="850" class="label" style="font-size: 11px;">BHUMI</text>
+
+  <!-- Descending Flow Arrows (Pravritti) - Left side -->
+  <path d="M 280 200 L 280 220" class="arrow"/>
+  <path d="M 280 340 L 280 370" class="arrow"/>
+  <path d="M 280 490 L 280 525" class="arrow"/>
+  <path d="M 280 620 L 280 655" class="arrow"/>
+  <path d="M 280 790 L 280 820" class="arrow"/>
+
+  <!-- Ascending Flow Arrows (Nivritti) - Right side -->
+  <path d="M 320 820 L 320 790" class="return-arrow"/>
+  <path d="M 320 650 L 320 620" class="return-arrow"/>
+  <path d="M 320 520 L 320 490" class="return-arrow"/>
+  <path d="M 320 370 L 320 340" class="return-arrow"/>
+  <path d="M 320 220 L 320 200" class="return-arrow"/>
+
+  <!-- Flow Labels -->
+  <text x="255" y="215" class="flow-label">↓ Pravritti</text>
+  <text x="350" y="215" class="flow-label">↑ Nivritti</text>
+
+  <!-- Legend -->
+  <g transform="translate(480, 230)">
+    <text x="0" y="0" style="font: bold 12px sans-serif; fill: #333;">LEGEND</text>
+
+    <polygon class="gold-star" points="15,-25 18,-18 25,-18 20,-13 22,-5 15,-10 8,-5 10,-13 5,-18 12,-18" transform="translate(-15, 40) scale(0.8)"/>
+    <text x="35" y="20" style="font: 11px sans-serif; fill: #333;">Star = KBV8</text>
+
+    <circle cx="15" cy="45" r="10" fill="#9400d3"/>
+    <text x="35" y="50" style="font: 11px sans-serif; fill: #333;">Circle = SA</text>
+
+    <rect x="5" y="65" width="20" height="20" fill="#4169e1"/>
+    <text x="35" y="80" style="font: 11px sans-serif; fill: #333;">Square = HA</text>
+
+    <polygon points="15,95 5,115 25,115" fill="#228b22"/>
+    <text x="35" y="110" style="font: 11px sans-serif; fill: #333;">Triangle = NA</text>
+
+    <polygon points="15,125 5,140 15,155 25,140" fill="#8b0000"/>
+    <text x="35" y="145" style="font: 11px sans-serif; fill: #333;">Diamond = MA</text>
+  </g>
+
+  <!-- Side Labels -->
+  <g transform="translate(50, 280)">
+    <text x="0" y="0" style="font: 10px sans-serif; fill: #9400d3;">Crown Chakra</text>
+    <text x="0" y="120" style="font: 10px sans-serif; fill: #4169e1;">Heart Chakra</text>
+    <text x="0" y="280" style="font: 10px sans-serif; fill: #228b22;">Solar Plexus</text>
+    <text x="0" y="440" style="font: 10px sans-serif; fill: #8b0000;">Root Chakra</text>
+  </g>
+
+</svg>

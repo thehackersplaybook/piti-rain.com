@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "bsaz": "node scripts/build-shiva-ambanoid-zaka.js",
+    "rpa": "cd packages/rpa && npm run rpa --",
+    "rpa:install": "cd packages/rpa && npm install && npm run build && pip3 install -r storm/requirements.txt",
+    "rpa:build": "cd packages/rpa && npm run build"
   },
   "dependencies": {
     "react": "19.2.0",

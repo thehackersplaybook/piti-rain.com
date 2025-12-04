@@ -1,0 +1,6 @@
+# Research Paper Agent (RPA) - Python Dependencies
+# Copyright (c) 2025 Aditya Patange. All rights reserved.
+
+knowledge-storm>=1.1.0
+litellm>=1.0.0
+duckduckgo-search>=6.0.0

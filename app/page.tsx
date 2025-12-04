@@ -141,9 +141,9 @@ export default function Home() {
               </h2>
               <div className="space-y-6 text-lg leading-relaxed text-gray-300">
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-light text-cyan-300">Dharmakaya</h3>
+                  <h3 className="text-2xl font-light text-cyan-300">Shambho</h3>
                   <p>
-                    Dharmakaya is the ultimate reality body in Buddhist philosophy—
+                    Shambho is the ultimate reality body in Buddhist philosophy—
                     the formless, timeless essence beyond all phenomena.
                     It represents pure awareness itself, the ground of all being,
                     from which compassion and wisdom naturally arise.
@@ -153,7 +153,7 @@ export default function Home() {
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
                     src="https://www.youtube.com/embed/ifiuzgE3TkY"
-                    title="Dharmakaya - Visual Ancient Teachings"
+                    title="Shambho - Visual Ancient Teachings"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   />

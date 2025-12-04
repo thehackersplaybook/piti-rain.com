@@ -66,7 +66,7 @@ export default function PapersPage() {
             scholars interested in bridging ancient wisdom with modern science.
           </p>
           <a
-            href="mailto:aditya@thehackersplaybook.com"
+            href="mailto:contact.adityapatange@gmail.com"
             className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors"
           >
             Get in touch.

@@ -5,113 +5,45 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { havanMantras, getMantraByIndex, getTotalMantras } from "@/lib/havan-mantras";
 
-// Fire Sound Generator (inline for client-side use)
-class FireSoundPlayer {
-  private audioContext: AudioContext | null = null;
-  private sourceNode: AudioBufferSourceNode | null = null;
-  private gainNode: GainNode | null = null;
-  private audioBuffer: AudioBuffer | null = null;
+// Havan Audio Player using AL13N1_SOUND.mp3
+class HavanAudioPlayer {
+  private audioElement: HTMLAudioElement | null = null;
   private isPlaying = false;
 
-  private generateFireAudio(): Float32Array {
-    const SAMPLE_RATE = 44100;
-    const DURATION_SECONDS = 10;
-    const NUM_SAMPLES = SAMPLE_RATE * DURATION_SECONDS;
-
-    // Generate brown noise
-    const brownNoise = new Float32Array(NUM_SAMPLES);
-    let lastValue = 0;
-    for (let i = 0; i < NUM_SAMPLES; i++) {
-      const white = Math.random() * 2 - 1;
-      lastValue = (lastValue + 0.02 * white) / 1.02;
-      brownNoise[i] = lastValue * 3.5 * 0.3;
-    }
-
-    // Generate crackles
-    const crackles = new Float32Array(NUM_SAMPLES);
-    const windowSize = Math.floor(SAMPLE_RATE / 20);
-    for (let window = 0; window < NUM_SAMPLES; window += windowSize) {
-      if (Math.random() < 0.15) {
-        const intensity = 0.3 + Math.random() * 0.7;
-        const length = Math.floor(windowSize * (0.1 + Math.random() * 0.5));
-        let decay = intensity;
-        for (let i = 0; i < length && window + i < NUM_SAMPLES; i++) {
-          crackles[window + i] = (Math.random() * 2 - 1) * decay * 0.8;
-          decay *= 0.995;
-        }
-      }
-    }
-
-    // Generate rumble
-    const rumble = new Float32Array(NUM_SAMPLES);
-    for (let i = 0; i < NUM_SAMPLES; i++) {
-      const t = i / SAMPLE_RATE;
-      const f1 = Math.sin(2 * Math.PI * 80 * t);
-      const f2 = Math.sin(2 * Math.PI * 120 * t) * 0.5;
-      const f3 = Math.sin(2 * Math.PI * 40 * t) * 0.7;
-      const modulation = 0.8 + 0.2 * Math.sin(2 * Math.PI * 0.3 * t);
-      rumble[i] = (f1 + f2 + f3) * 0.15 * modulation * 0.4;
-    }
-
-    // Mix
-    const mixed = new Float32Array(NUM_SAMPLES);
-    for (let i = 0; i < NUM_SAMPLES; i++) {
-      mixed[i] = Math.tanh(brownNoise[i] + crackles[i] + rumble[i]);
-    }
-
-    // Apply loop fades
-    const fadeLength = Math.floor(SAMPLE_RATE * 0.5);
-    for (let i = 0; i < fadeLength; i++) {
-      const fade = i / fadeLength;
-      mixed[i] *= fade;
-      mixed[NUM_SAMPLES - 1 - i] *= fade;
-    }
-
-    return mixed;
-  }
-
   async initialize(): Promise<void> {
-    this.audioContext = new AudioContext();
-    this.gainNode = this.audioContext.createGain();
-    this.gainNode.connect(this.audioContext.destination);
-    this.gainNode.gain.value = 0.4;
+    if (typeof window === "undefined") return;
 
-    const samples = this.generateFireAudio();
-    this.audioBuffer = this.audioContext.createBuffer(1, samples.length, 44100);
-    this.audioBuffer.getChannelData(0).set(samples);
+    this.audioElement = new Audio("/audio/AL13N1_SOUND.mp3");
+    this.audioElement.loop = true;
+    this.audioElement.volume = 0.4;
   }
 
   async play(): Promise<void> {
-    if (!this.audioContext || !this.audioBuffer || !this.gainNode) {
+    if (!this.audioElement) {
       await this.initialize();
     }
 
-    if (this.isPlaying) return;
+    if (this.isPlaying || !this.audioElement) return;
 
-    if (this.audioContext!.state === "suspended") {
-      await this.audioContext!.resume();
+    try {
+      await this.audioElement.play();
+      this.isPlaying = true;
+    } catch (error) {
+      console.error("Error playing audio:", error);
     }
-
-    this.sourceNode = this.audioContext!.createBufferSource();
-    this.sourceNode.buffer = this.audioBuffer;
-    this.sourceNode.loop = true;
-    this.sourceNode.connect(this.gainNode!);
-    this.sourceNode.start();
-    this.isPlaying = true;
   }
 
   stop(): void {
-    if (this.sourceNode && this.isPlaying) {
-      this.sourceNode.stop();
-      this.sourceNode.disconnect();
-      this.sourceNode = null;
+    if (this.audioElement && this.isPlaying) {
+      this.audioElement.pause();
+      this.audioElement.currentTime = 0;
       this.isPlaying = false;
     }
   }
 
   setVolume(volume: number): void {
-    if (this.gainNode) {
-      this.gainNode.gain.value = Math.max(0, Math.min(1, volume));
+    if (this.audioElement) {
+      this.audioElement.volume = Math.max(0, Math.min(1, volume));
     }
   }
 
@@ -481,15 +413,15 @@ export default function LiveHavanPage() {
   const [volume, setVolume] = useState(0.4);
   const [isMuted, setIsMuted] = useState(false);
 
-  const fireSoundRef = useRef<FireSoundPlayer | null>(null);
+  const havanAudioRef = useRef<HavanAudioPlayer | null>(null);
   const mantraTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Initialize fire sound player
+  // Initialize havan audio player
   useEffect(() => {
-    fireSoundRef.current = new FireSoundPlayer();
+    havanAudioRef.current = new HavanAudioPlayer();
     return () => {
-      if (fireSoundRef.current) {
-        fireSoundRef.current.stop();
+      if (havanAudioRef.current) {
+        havanAudioRef.current.stop();
       }
       if (mantraTimerRef.current) {
         clearTimeout(mantraTimerRef.current);
@@ -519,22 +451,22 @@ export default function LiveHavanPage() {
 
   // Handle volume changes
   useEffect(() => {
-    if (fireSoundRef.current) {
-      fireSoundRef.current.setVolume(isMuted ? 0 : volume);
+    if (havanAudioRef.current) {
+      havanAudioRef.current.setVolume(isMuted ? 0 : volume);
     }
   }, [volume, isMuted]);
 
   const startHavan = async () => {
     setIsHavanActive(true);
-    if (fireSoundRef.current && !isMuted) {
-      await fireSoundRef.current.play();
+    if (havanAudioRef.current && !isMuted) {
+      await havanAudioRef.current.play();
     }
   };
 
   const stopHavan = () => {
     setIsHavanActive(false);
-    if (fireSoundRef.current) {
-      fireSoundRef.current.stop();
+    if (havanAudioRef.current) {
+      havanAudioRef.current.stop();
     }
     if (mantraTimerRef.current) {
       clearTimeout(mantraTimerRef.current);
@@ -543,12 +475,12 @@ export default function LiveHavanPage() {
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
-    if (fireSoundRef.current) {
+    if (havanAudioRef.current) {
       if (!isMuted) {
-        fireSoundRef.current.setVolume(0);
+        havanAudioRef.current.setVolume(0);
       } else if (isHavanActive) {
-        fireSoundRef.current.setVolume(volume);
-        fireSoundRef.current.play();
+        havanAudioRef.current.setVolume(volume);
+        havanAudioRef.current.play();
       }
     }
   };

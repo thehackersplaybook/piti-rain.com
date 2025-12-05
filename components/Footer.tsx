@@ -33,6 +33,12 @@ export default function Footer() {
             >
               Sacred Geometry
             </Link>
+            <Link
+              href="/divya-tantra"
+              className="text-gray-400 hover:text-red-400 transition-colors"
+            >
+              Divya Tantra
+            </Link>
           </div>
           <div className="space-y-2">
             <p className="text-lg font-light text-cyan-400">

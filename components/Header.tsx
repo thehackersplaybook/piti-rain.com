@@ -31,6 +31,12 @@ export default function Header() {
             >
               Sacred Geometry
             </Link>
+            <Link
+              href="/divya-tantra"
+              className="text-gray-300 hover:text-red-400 transition-colors"
+            >
+              Divya Tantra
+            </Link>
           </div>
         </nav>
       </div>
